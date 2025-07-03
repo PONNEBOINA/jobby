@@ -1,0 +1,121 @@
+.rating {
+  display: flex;
+  justify-content: space-around;
+}
+
+.skills {
+  list-style-type: none;
+  display: flex;
+  flex-wrap: wrap;
+
+  gap: 40px;
+}
+.company-img-rating {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.rating-star {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.detail-job {
+  padding: 15px;
+}
+.location-icon {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.visit-link {
+  display: flex;
+  justify-content: space-between;
+}
+.vistlink {
+  margin-top: 20px;
+  margin-right: 20px;
+  font-size: 20px;
+}
+.life-at-company {
+  display: flex;
+}
+.life-at-company > div:first-child {
+  width: 75%;
+  font-size: 20px;
+}
+.img {
+  width: 25%;
+}
+
+.about-job-background {
+  background-color: black;
+  color: white;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+  padding: 15px;
+}
+
+@media (max-width: 768px) {
+  .rating {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .skills {
+    display: flex;
+    max-width: 300px;
+    flex-wrap: wrap;
+
+    gap: 20px;
+    padding: 0;
+  }
+
+  .company-img-rating {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .rating-star {
+    gap: 6px;
+  }
+
+  .detail-job {
+    padding: 10px;
+  }
+
+  .visit-link {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .vistlink {
+    font-size: 16px;
+    margin: 10px 0;
+  }
+
+  .life-at-company {
+    flex-direction: column;
+  }
+
+  .life-at-company > div:first-child {
+    width: 100%;
+    font-size: 18px;
+  }
+
+  .img {
+    width: 100%;
+    max-width: 300px;
+    height: auto; /* maintains aspect ratio */
+    object-fit: contain; /* ensures image doesn't overflow or distort */
+    margin: 0 auto; /* center the image */
+    display: block;
+  }
+
+  .about-job-background {
+    padding: 10px;
+    font-size: 16px;
+  }
+}

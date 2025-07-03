@@ -1,9 +1,11 @@
 import {Component} from 'react'
 import Cookies from 'js-cookie'
 import Loader from 'react-loader-spinner'
-import {AiOutlineSearch} from 'react-icons/ai'
+
 import Header from '../Header'
 import EachJobItem from '../EachJobItem'
+
+import './index.css'
 
 const employmentTypesList = [
   {
@@ -21,25 +23,6 @@ const employmentTypesList = [
   {
     label: 'Internship',
     employmentTypeId: 'INTERNSHIP',
-  },
-]
-
-const salaryRangesList = [
-  {
-    salaryRangeId: '1000000',
-    label: '10 LPA and above',
-  },
-  {
-    salaryRangeId: '2000000',
-    label: '20 LPA and above',
-  },
-  {
-    salaryRangeId: '3000000',
-    label: '30 LPA and above',
-  },
-  {
-    salaryRangeId: '4000000',
-    label: '40 LPA and above',
   },
 ]
 
@@ -66,6 +49,7 @@ class AllJobs extends Component {
     checkBoxList: [],
     activeRadioinput: '',
     searchInput: '',
+    showall: false,
   }
 
   componentDidMount() {
@@ -132,7 +116,7 @@ class AllJobs extends Component {
     const {name, shortBio, image} = profileData
     console.log(image)
     return (
-      <div>
+      <div className="profileView">
         <img src={image} alt="profile" />
         <h1>{name}</h1>
         <p>{shortBio}</p>
@@ -173,8 +157,9 @@ class AllJobs extends Component {
   }
 
   renderJobsSuccess = () => {
-    const {jobsData} = this.state
+    const {jobsData, showall} = this.state
     const noOfJobs = jobsData.length === 0
+    const visibleJobs = showall ? jobsData : jobsData.slice(0, 3)
     return noOfJobs ? (
       <div>
         <img
@@ -182,14 +167,29 @@ class AllJobs extends Component {
           alt="no jobs"
         />
         <h1>No jobs found</h1>
-        <p>We could not find any jobs. Try other filters</p>
+        <p>We could not find any jobs.Try other filters</p>
       </div>
     ) : (
-      <ul>
-        {jobsData.map(each => (
-          <EachJobItem key={each.id} eachitem={each} />
-        ))}
-      </ul>
+      <div>
+        <ul className="list">
+          {visibleJobs.map(each => (
+            <EachJobItem key={each.id} eachitem={each} />
+          ))}
+        </ul>
+        {jobsData.length > 3 && (
+          <div style={{textAlign: 'center', marginTop: '20px'}}>
+            <button
+              type="button"
+              onClick={() =>
+                this.setState(prevState => ({showall: !prevState.showall}))
+              }
+              className="load-more-btn"
+            >
+              {showall ? 'Show Less' : 'Load More'}
+            </button>
+          </div>
+        )}
+      </div>
     )
   }
 
@@ -216,11 +216,11 @@ class AllJobs extends Component {
   renderJobsData = () => {
     const {apiJob} = this.state
     switch (apiJob) {
-      case apiProfileContext.success:
+      case apiJobsContext.success:
         return this.renderJobsSuccess()
-      case apiProfileContext.failure:
+      case apiJobsContext.failure:
         return this.renderJobsFailure()
-      case apiProfileContext.inProgress:
+      case apiJobsContext.inProgress:
         return this.renderLoadingView()
       default:
         return null
@@ -262,22 +262,6 @@ class AllJobs extends Component {
     this.setState({activeRadioinput: event.target.id}, this.getJobData)
   }
 
-  renderRadioInput = () => (
-    <ul>
-      {salaryRangesList.map(each => (
-        <li key={each.salaryRangeId}>
-          <input
-            type="radio"
-            name="option"
-            id={each.salaryRangeId}
-            onChange={this.onChangeRadioBtn}
-          />
-          <label htmlFor={each.salaryRangeId}>{each.label}</label>
-        </li>
-      ))}
-    </ul>
-  )
-
   searchbtn = () => {
     this.getJobData()
   }
@@ -293,32 +277,16 @@ class AllJobs extends Component {
   }
 
   render() {
-    const {searchInput} = this.state
     return (
-      <div>
+      <div className="detial-job-view">
         <Header />
-        <div>{this.renderProfileData()}</div>
-        <h1>Type of Employment</h1>
-        {this.renderCheckBoxView()}
-        {this.renderJobsData()}
-        <h1>Salary Range</h1>
-        {this.renderRadioInput()}
-        <div>
-          <input
-            value={searchInput}
-            type="search"
-            placeholder="Search"
-            onChange={this.onchagnesearch}
-            onKeyDown={this.enterkey}
-          />
-          <button
-            data-testid="searchButton"
-            type="button"
-            onClick={this.searchbtn}
-            aria-label="btn"
-          >
-            <AiOutlineSearch />
-          </button>
+        <div className="jobs-data">
+          <div className="sidebar">
+            {this.renderProfileData()}
+            <h1>Type of Employment</h1>
+            {this.renderCheckBoxView()}
+          </div>
+          <div className="job-list">{this.renderJobsData()}</div>
         </div>
       </div>
     )

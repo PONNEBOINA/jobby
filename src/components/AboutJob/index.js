@@ -6,6 +6,7 @@ import Loader from 'react-loader-spinner'
 import SimilarJobs from '../SimilarJobs'
 
 import Header from '../Header'
+import './index.css'
 
 const apiJobsStatus = {
   initial: 'INITIAL',
@@ -97,37 +98,55 @@ class AboutJob extends Component {
         skills,
       } = jobData[0]
       return (
-        <div>
-          <div>
-            <img src={companyLogoUrl} alt="job details company logo" />
-            <div>
-              <h1>{title}</h1>
-              <AiFillStar />
-              <p>{rating}</p>
+        <div className="detail-job">
+          <div className="about-job-background">
+            <div className="company-img-rating">
+              <img src={companyLogoUrl} alt="job details company logo" />
+              <div>
+                <h1>{title}</h1>
+                <div className="rating-star">
+                  <AiFillStar />
+                  <p>{rating}</p>
+                </div>
+              </div>
+            </div>
+            <div className="location-icon">
+              <MdLocationOn />
+              <p>{location}</p>
+              <p>{employmentType}</p>
+            </div>
+            <p>{packagePerAnnum}</p>
+            <hr />
+            <div className="visit-link">
+              <h1>Description</h1>
+              <div className="vistlink">
+                <a href={companyWebsiteUrl}>Visit</a>
+              </div>
+            </div>
+            <p>{jobDescription}</p>
+            <hr />
+
+            <h1>Skills</h1>
+            <ul className="skills">
+              {skills.map(each => (
+                <li key={each.name}>
+                  <img src={each.imageUrl} alt={each.name} />
+                  <p>{each.name}</p>
+                </li>
+              ))}
+            </ul>
+            <h1>Life at Company</h1>
+            <div className="life-at-company">
+              <div>
+                <p>{lifeAtCompany.description}</p>
+              </div>
+              <img
+                src={lifeAtCompany.imageUrl}
+                alt="life at company"
+                className="img"
+              />
             </div>
           </div>
-          <MdLocationOn />
-          <p>{location}</p>
-          <p>{employmentType}</p>
-          <p>{packagePerAnnum}</p>
-          <hr />
-          <div>
-            <h1>Description</h1>
-            <a href={companyWebsiteUrl}>Visit</a>
-          </div>
-          <p>{jobDescription}</p>
-          <h1>Skills</h1>
-          <ul>
-            {skills.map(each => (
-              <li key={each.name}>
-                <img src={each.imageUrl} alt={each.name} />
-                <p>{each.name}</p>
-              </li>
-            ))}
-          </ul>
-          <h1>Life at Company</h1>
-          <p>{lifeAtCompany.description}</p>
-          <img src={lifeAtCompany.imageUrl} alt="life at company" />
           <h1>Similar Jobs</h1>
           <ul>
             {similarJobs.map(each => (

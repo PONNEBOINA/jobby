@@ -1,0 +1,25 @@
+.similar-list {
+  background-color: grey;
+  padding: 10px;
+  border: 1px solid;
+  color: white;
+  margin-bottom: 20px;
+}
+.similar {
+  display: flex;
+}
+.company-img-rating {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.rating-star {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.location-icon {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}

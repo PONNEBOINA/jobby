@@ -1,6 +1,7 @@
 import {Component} from 'react'
 import Cookies from 'js-cookie'
 import {Redirect} from 'react-router-dom'
+import './index.css'
 
 class LoginForm extends Component {
   state = {
@@ -54,7 +55,7 @@ class LoginForm extends Component {
   renderPasswordField = () => {
     const {password} = this.state
     return (
-      <>
+      <div className="label">
         <label className="input-label" htmlFor="password">
           PASSWORD
         </label>
@@ -65,14 +66,14 @@ class LoginForm extends Component {
           value={password}
           onChange={this.onChangePassword}
         />
-      </>
+      </div>
     )
   }
 
   renderUsernameField = () => {
     const {username} = this.state
     return (
-      <>
+      <div className="label">
         <label className="input-label" htmlFor="username">
           USERNAME
         </label>
@@ -83,7 +84,7 @@ class LoginForm extends Component {
           value={username}
           onChange={this.onChangeUsername}
         />
-      </>
+      </div>
     )
   }
 
@@ -95,18 +96,20 @@ class LoginForm extends Component {
     }
     return (
       <div className="login-form-container">
-        <form className="form-container" onSubmit={this.submitForm}>
-          <img
-            src="https://assets.ccbp.in/frontend/react-js/logo-img.png"
-            alt="website logo"
-          />
-          <div className="input-container">{this.renderUsernameField()}</div>
-          <div className="input-container">{this.renderPasswordField()}</div>
-          <button type="submit" className="login-button">
-            Login
-          </button>
-          {showSubmitError && <p className="error-message">*{errorMsg}</p>}
-        </form>
+        <div>
+          <form className="form-container" onSubmit={this.submitForm}>
+            <img
+              src="https://assets.ccbp.in/frontend/react-js/logo-img.png"
+              alt="website logo"
+            />
+            <div className="input-container">{this.renderUsernameField()}</div>
+            <div className="input-container">{this.renderPasswordField()}</div>
+            <button type="submit" className="login-button">
+              Login
+            </button>
+            {showSubmitError && <p className="error-message">*{errorMsg}</p>}
+          </form>
+        </div>
       </div>
     )
   }
